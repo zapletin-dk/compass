@@ -1,19 +1,14 @@
 package com.epam.rd.autotasks;
-
-
 public enum Direction {
     N(0), NE(45), E(90), SE(135), S(180), SW(225), W(270), NW(315);
-
+    private final int degrees;
     Direction(final int degrees) {
         this.degrees = degrees;
     }
-
-    private final int degrees;
-
     public static Direction ofDegrees(int degrees) {
         degrees = degreesToLimit(degrees);
-        for (Direction dir : Direction.values()){
-            if (dir.degrees == degrees) { return dir; }
+        for (Direction direction : Direction.values()){
+            if (direction.degrees == degrees) { return direction; }
         }
         return null;
     }
@@ -21,14 +16,14 @@ public enum Direction {
     public static Direction closestToDegrees(int degrees) {
         degrees = degreesToLimit(degrees);
         int temp = Math.abs(degrees - Direction.N.degrees);
-        Direction out = Direction.N;
-        for (Direction dir : Direction.values()){
-            if (Math.abs(degrees - dir.degrees) <  temp) {
-                out = dir;
-                temp = Math.abs(degrees - dir.degrees);
+        Direction closestDirection = Direction.N;
+        for (Direction direction : Direction.values()){
+            if (Math.abs(degrees - direction.degrees) <  temp) {
+                closestDirection = direction;
+                temp = Math.abs(degrees - direction.degrees);
             }
         }
-        return out;
+        return closestDirection;
     }
 
     public Direction opposite() {
